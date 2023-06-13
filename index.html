@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <title>Code</title>
+</head>
+<body>
+    <h1 class="text-xl font-bold text-blue-800 m-2 mx-auto text-center">Copy Paste with js</h1>
+    <div class="w-1/2 mx-auto p-5 bg-slate-500 text-white m-2 relative">
+        <code id="code">
+            #include &lt;iostream&gt; <br>
+            #include &lt;string&gt; <br>
+            #include &lt;algorithm&gt; <br>
+            using namespace std; <br>
+            int main() <br>
+            { <br>
+                string str; <br>
+                cout &lt;&lt; "Enter a string: " ; <br> 
+                cin&gt;&gt; str; <br>
+                reverse(str.begin(), str.end()); <br>
+                cout &lt;&lt; str &lt;&lt; endl;<br> 
+                return 0; <br>
+            }
+        </code>
+        <div class="cursor-pointer" id="clipboard">
+            <i class="fa-regular fa-clipboard absolute top-5 right-28 scale-150  active:animate-bounce" ></i>
+            <span id="copytext" class="absolute top-4 right-5">copy code</span>
+        </div>
+    </div>
+    <div class="w-1/2 bg-slate-500 min-h-[2rem] mx-auto relative p-2">
+        <div class="cursor-pointer text-white" id="paste" onclick="paste()">
+            <i class="fa-regular fa-clipboard absolute top-2 right-28 scale-150  active:animate-bounce"></i>
+            <span id="pastetext" class="absolute top-1 right-5">paste code</span>
+        </div>
+        <code id="pastecode" class="text-white text-lg">
+
+        </code>
+    </div>
+
+</body>
+<script>
+    // let clipboard= document.getElementById('clipboard');
+    clipboard.addEventListener('click',copyit);
+    function copyit()
+    {
+        let code = document.getElementById('code').innerText;
+        navigator.clipboard.writeText(code)
+        .then(()=>
+        {
+            console.log('copied to clipboard');
+            let copytext = document.getElementById('copytext');
+            copytext.innerText='Copied!';
+            setTimeout(() => {
+                copytext.innerText ='copy code'
+            }, 1000);
+        })
+        .catch(()=>console.log('not copied'))
+    }
+    function paste() {
+            let pastecode = document.getElementById('pastecode');
+            navigator.clipboard.readText()
+                .then((data) => {
+                    pastecode.innerText = data;
+                    console.log(data);
+                })
+                .then(() => {
+                    console.log('Pasted');
+                    pastetext.innerText = 'Pasted!';
+                    setTimeout(() => {
+                        pastetext.innerText = 'paste code'
+                    }, 500);
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+        }
+
+</script>
+</html>
